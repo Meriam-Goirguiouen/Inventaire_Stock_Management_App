@@ -1,18 +1,19 @@
 package com.project.model;
 
-import jakarta.persistence.*;
 import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
-public class Categorie {
+public class Fournisseur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String libelle;
+    private String nom;
+    private String email;
 
-    @OneToMany(mappedBy = "categorie")
+    @OneToMany(mappedBy = "fournisseur")
     private List<Produit> produits;
 
     // Getters & Setters
@@ -20,16 +21,20 @@ public class Categorie {
         return this.id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getNom() {
+        return this.nom;
     }
 
-    public String getLibelle() {
-        return this.libelle;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Produit> getProduits() {
