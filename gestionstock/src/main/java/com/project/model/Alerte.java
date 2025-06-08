@@ -15,7 +15,7 @@ public class Alerte {
     private LocalDateTime dateSend;
 
     @ManyToOne
-    @JoinColumn(name = "produit_id") // facultatif mais explicite
+    @JoinColumn(name = "produit_id")
     private Produit produit;
 
     // Getters & Setters
