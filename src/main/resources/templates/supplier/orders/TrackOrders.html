@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Fournisseur</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #f0f9f5;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #a5d6a7;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-color: #66bb6a;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .logo-img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+
+        .sidebar h2 {
+            margin-top: 0;
+            color: #1b5e20;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: #004000;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #81c784;
+        }
+
+        .main {
+            flex: 1;
+            padding: 40px;
+            background-color: #ffffff;
+            overflow-y: auto;
+        }
+
+        .main h2 {
+            color: #2e7d32;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .main ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .main li {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #2e7d32;
+            box-shadow: 0 2px 4px rgba(46, 125, 50, 0.05);
+        }
+
+        .main li span {
+            display: block;
+        }
+
+        .main li:hover {
+            background-color: #d0e8d0;
+            cursor: default;
+        }
+</style>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="sidebar">
+            <img th:src="@{/img/lol.png}" alt="Logo" class="logo-img" />
+            <ul>
+                <li><a th:href="@{/supplier/dashboard}">Dashboard</a></li>
+                <li><a th:href="@{/supplier/orders/view}">Bons de commande générés</a></li>
+                <li><a th:href="@{/supplier/orders/track}">Suivi des livraisons</a></li>
+                <li><a th:href="@{/supplier/documents/download}">Télécharger bons </a></li>
+                <li><a th:href="@{/logout}">Déconnexion</a></li>
+            </ul>
+        </div>
+    <div class="main">
+    <h2>Commandes Livrées</h2>
+    <ul>
+        <li th:each="order : ${deliveredOrders}">
+            <span th:text="'Commande #' + ${order.idCommande} + ' - ' + ${#dates.format(order.dateCommande, 'dd/MM/yyyy')} + ' (' + ${order.statut} + ')'">Commande</span>
+        </li>
+        </ul>
+    </div>
+
+</body>
+</html>
