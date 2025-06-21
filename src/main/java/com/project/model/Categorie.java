@@ -13,7 +13,7 @@ public class Categorie {
     private String libelle;
 
     @OneToMany(mappedBy = "categorie")
-    private List<Produit> produits;
+    // private List<Produit> produits;
 
     // Getters & Setters
     public Long getId() {
@@ -32,11 +32,11 @@ public class Categorie {
         this.libelle = libelle;
     }
 
-    public List<Produit> getProduits() {
-        return produits;
-    }
+    // public List<Produit> getProduits() {
+    //     return produits;
+    // }
 
-    public void setProduits(List<Produit> produits) {
-        this.produits = produits;
-    }
+    // public void setProduits(List<Produit> produits) {
+    //     this.produits = produits;
+    // }
 }
