@@ -1,16 +1,19 @@
 package com.projetstock.gestionstock;
 
-import com.projetstock.gestionstock.jms.NotificationProducer;
+import com.projetstock.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.jms.annotation.EnableJms;
 
 @SpringBootApplication
+@EnableJms
 public class GestionstockApplication implements CommandLineRunner {
 
+    // On injecte le SERVICE, pas le producer
     @Autowired
-    private NotificationProducer producer;
+    private NotificationService notificationService; 
 
     public static void main(String[] args) {
         SpringApplication.run(GestionstockApplication.class, args);
@@ -18,7 +21,11 @@ public class GestionstockApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Simulation d’une alerte de stock bas
-        producer.envoyerNotification("Stock bas pour le produit: Laptop HP 15s !");
+        // On appelle la méthode du service pour notre test
+        System.out.println("--- DÉBUT DU TEST D'ENVOI JMS ---");
+        // L'id utilisateur '1' est un exemple, pour représenter l'admin
+        notificationService.envoyerNotificationStockBas(1, "Laptop HP 15s (Test au démarrage)");
+        System.out.println("--- FIN DU TEST D'ENVOI JMS ---");
     }
+
 }
