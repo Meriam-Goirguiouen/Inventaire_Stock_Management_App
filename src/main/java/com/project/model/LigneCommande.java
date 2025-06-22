@@ -9,7 +9,7 @@ public class LigneCommande {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    // @ManyToOne
     // private Produit produit;
 
     private int quantite;
