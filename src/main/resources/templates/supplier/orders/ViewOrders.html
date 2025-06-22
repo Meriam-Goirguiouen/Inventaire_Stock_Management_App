@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Voir les commandes - Fournisseur</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #f0f9f5;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #a5d6a7;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logo-img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+
+        .sidebar h2 {
+            margin-top: 0;
+            color: #1b5e20;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: #004000;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #81c784;
+        }
+
+        .main {
+            flex: 1;
+            padding: 40px;
+            background-color: #ffffff;
+        }
+
+        h2 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(46, 125, 50, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px 20px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2e7d32;
+            color: white;
+            font-weight: normal;
+            border-bottom: 2px solid #4caf50;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f0f9f1;
+        }
+
+        tr:hover {
+            background-color: #d9f2d8;
+        }
+
+        a.action-link {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        a.action-link:hover {
+            text-decoration: underline;
+            color: #145214;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <img th:src="@{/img/lol.png}" alt="Logo" class="logo-img" />
+        <ul>
+            <li><a th:href="@{/supplier/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/supplier/orders/view}">Bons de commande générés</a></li>
+            <li><a th:href="@{/supplier/orders/track}">Suivi des livraisons</a></li>
+            <li><a th:href="@{/supplier/documents/download}">Télécharger bons</a></li>
+            <li><a th:href="@{/logout}">Déconnexion</a></li>
+        </ul>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+        <h2>Liste des bons de commande</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.idCommande}">101</td>
+                    <td th:text="${#dates.format(order.dateCommande, 'dd/MM/yyyy')}">20/06/2025</td>
+                    <td th:text="${order.statut}">En attente</td>
+                    <td>
+                        <a th:href="@{/supplier/orders/confirm-or-decline(orderId=${order.idCommande})}" class="action-link">Confirmer/Refuser</a>
+                        <a th:href="@{/supplier/orders/add-comments(orderId=${order.idCommande})}" class="action-link">Ajouter commentaire</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

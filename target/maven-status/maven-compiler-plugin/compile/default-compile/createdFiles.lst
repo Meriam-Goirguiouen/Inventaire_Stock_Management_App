@@ -1,6 +1,6 @@
+com\project\controller\LoginController.class
 com\project\controller\commandeController.class
+com\project\controller\HomeController.class
 com\project\InventaireApplication.class
 com\project\controller\magasinierController.class
 com\project\controller\fournisseurController.class
-com\project\controller\LoginController.class
-com\project\controller\HomeController.class
