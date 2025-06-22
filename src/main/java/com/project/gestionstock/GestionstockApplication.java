@@ -1,5 +1,4 @@
 package com.project.gestionstock;
-
 import com.project.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,5 +26,4 @@ public class GestionstockApplication implements CommandLineRunner {
         notificationService.envoyerNotificationStockBas(1, "Laptop HP 15s (Test au démarrage)");
         System.out.println("--- FIN DU TEST D'ENVOI JMS ---");
     }
-
 }
