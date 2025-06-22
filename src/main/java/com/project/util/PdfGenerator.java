@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.example.util;
+package com.project.util;
 
-import com.example.model.CommandeFournisseur;
+import com.project.model.CommandeFournisseur;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfWriter;
 

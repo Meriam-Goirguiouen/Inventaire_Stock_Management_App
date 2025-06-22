@@ -2,16 +2,16 @@
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
   <persistence-unit name="com.example_demo_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.example.model.Fournisseur</class>
-    <class>com.example.model.Article</class>
-    <class>com.example.model.LigneCommandeFournisseur</class>
-    <class>com.example.model.Utilisateur</class>
-    <class>com.example.model.Administrateur</class>
-    <class>com.example.model.Notification</class>
-    <class>com.example.model.MouvementStock</class>
-    <class>com.example.model.Stock</class>
-    <class>com.example.model.CommandeFournisseur</class>
-    <class>com.example.model.Magasinier</class>
+    <class>com.project.model.CommandeFournisseur</class>
+    <class>com.project.model.Fournisseur</class>
+    <class>com.project.model.Utilisateur</class>
+    <class>com.project.model.Stock</class>
+    <class>com.project.model.LigneCommandeFournisseur</class>
+    <class>com.project.model.Magasinier</class>
+    <class>com.project.model.Notification</class>
+    <class>com.project.model.Administrateur</class>
+    <class>com.project.model.MouvementStock</class>
+    <class>com.project.model.Article</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/inventairestockdb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
