@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Fournisseur</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #f0f9f5;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #a5d6a7;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background-color: #66bb6a;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .logo-img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+
+        .sidebar h2 {
+            margin-top: 0;
+            color: #1b5e20;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: #004000;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #81c784;
+        }
+
+        .main {
+            flex: 1;
+            padding: 40px;
+            background-color: #ffffff;
+            overflow-y: auto;
+        }
+
+        .card {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #388e3c;
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .stat-box {
+            flex: 1;
+            background-color: #c8e6c9;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-box h2 {
+            margin: 0;
+            font-size: 2em;
+            color: #2e7d32;
+        }
+
+        .stat-box p {
+            margin: 5px 0 0;
+            color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="sidebar">
+            <img th:src="@{/img/lol.png}" alt="Logo" class="logo-img" />
+            <ul>
+                <li><a th:href="@{/supplier/dashboard}">Dashboard</a></li>
+                <li><a th:href="@{/supplier/orders/view}">Bons de commande générés</a></li>
+                <li><a th:href="@{/supplier/orders/track}">Suivi des livraisons</a></li>
+                <li><a th:href="@{/supplier/documents/download}">Télécharger bons</a></li>
+                <li><a th:href="@{/logout}">Déconnexion</a></li>
+            </ul>
+        </div>
+
+        <div class="main">
+            <h2>Bonjour <span th:text="${supplierName}">Fournisseur</span>,</h2>
+            <p th:text="${message}">Bienvenue sur votre tableau de bord.</p>
+
+            <div class="card">
+                <h3>Statistiques</h3>
+                <div class="stats">
+                    <div class="stat-box">
+                        <h2 th:text="${pendingOrdersCount ?: 0}">0</h2>
+                        <p>Commandes en attente</p>
+                    </div>
+                    <div class="stat-box">
+                        <h2 th:text="${newNotificationsCount ?: 0}">0</h2>
+                        <p>Nouvelles notifications</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Activité récente</h3>
+                <ul>
+                    <li>Commande #2024001 confirmée il y a 3h</li>
+                    <li>Bon de commande #2024002 téléchargé hier</li>
+                    <li>Livraison validée pour la commande #2023999</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
