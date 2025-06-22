@@ -28,7 +28,7 @@ public class SupplierDashboardController {
         cal.add(Calendar.DATE, -days);
         return cal.getTime();
     }
-
+//    dashboard functions
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         model.addAttribute("supplierName", "Fournisseur Démo");
@@ -37,7 +37,7 @@ public class SupplierDashboardController {
         model.addAttribute("newNotificationsCount", 1);
         return "supplier/SupplierDashboard";
     }
-
+// orders view table function
     @GetMapping("/orders/view")
     public String viewOrders(Model model) {
         List<CommandeFournisseur> orders = Arrays.asList(
