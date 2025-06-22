@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard - Magasiniers</title>
+  <link rel="stylesheet" th:href="@{/css/style2.css}" />
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <img th:src="@{/img/logo.png}" alt="Admin Logo" class="logo-img" />
+    <ul>
+      <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+      <li><a th:href="@{/admin/fournisseurs}">Fournisseurs</a></li>
+      <li><a th:href="@{/admin/magasiniers}">Magasiniers</a></li>
+      <li><a th:href="@{/admin/commandes}">Commandes</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h2>Liste des Magasiniers</h2>
+
+    <div class="actions">
+      <button onclick="afficherFormulaireAjout()">Ajouter un magasinier</button>
+    </div>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MG001</td>
+          <td>Ahmed El Idrissi</td>
+          <td>ahmed.idrissi@stockapp.com</td>
+          <td>
+            <button onclick="modifierMagasinier('MG001')">Modifier</button>
+            <button class="delete" onclick="supprimerMagasinier('MG001')">Supprimer</button>
+          </td>
+        </tr>
+        <tr>
+          <td>MG002</td>
+          <td>Fatima Zahra</td>
+          <td>fatima.zahra@stockapp.com</td>
+          <td>
+            <button onclick="modifierMagasinier('MG002')">Modifier</button>
+            <button class="delete" onclick="supprimerMagasinier('MG002')">Supprimer</button>
+          </td>
+        </tr>
+        <tr>
+          <td>MG003</td>
+          <td>Omar Bouzid</td>
+          <td>omar.bouzid@stockapp.com</td>
+          <td>
+            <button onclick="modifierMagasinier('MG003')">Modifier</button>
+            <button class="delete" onclick="supprimerMagasinier('MG003')">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div id="form-ajout-produit">
+      <h3>Ajouter un magasinier</h3>
+      <form id="ajoutProduitForm" onsubmit="return validerEtEnvoyer();">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required />
+
+        <label for="id">ID :</label>
+        <input type="text" id="id" name="id" required />
+
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required />
+
+        <div class="form-buttons">
+          <button type="submit">Ajouter</button>
+          <button type="button" onclick="cacherFormulaireAjout()">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function afficherFormulaireAjout() {
+    document.getElementById('form-ajout-produit').style.display = 'block';
+  }
+
+  function cacherFormulaireAjout() {
+    document.getElementById('form-ajout-produit').style.display = 'none';
+  }
+
+  function validerEtEnvoyer() {
+    const nom = document.getElementById('nom').value.trim();
+    const id = document.getElementById('id').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (!nom || !id || !email) {
+      alert('Veuillez remplir tous les champs.');
+      return false;
+    }
+
+    alert(`Magasinier ajouté :\nNom: ${nom}\nID: ${id}\nEmail: ${email}`);
+    document.getElementById('ajoutProduitForm').reset();
+    cacherFormulaireAjout();
+    return false;
+  }
+
+  function modifierMagasinier(id) {
+    alert("Modifier le magasinier avec ID : " + id);
+  }
+
+  function supprimerMagasinier(id) {
+    if (confirm("Voulez-vous vraiment supprimer ce magasinier ?")) {
+      alert("Magasinier ID " + id + " supprimé (simulation).");
+    }
+  }
+</script>
+
+</body>
+</html>
