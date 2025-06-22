@@ -1,6 +1,6 @@
-package com.projetstock.repository;
+package com.project.repository;
 
-import com.projetstock.model.Stock;
+import com.project.model.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StockRepository extends JpaRepository<Stock, Integer> {

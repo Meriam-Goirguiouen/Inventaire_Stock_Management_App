@@ -1,4 +1,4 @@
-package com.projetstock.model;
+package com.project.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
-package com.projetstock.repository;
+package com.project.repository;
 
-import com.projetstock.model.Article;
+import com.project.model.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

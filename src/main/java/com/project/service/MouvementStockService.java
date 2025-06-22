@@ -1,11 +1,11 @@
-package com.projetstock.service;
+package com.project.service;
 
-import com.projetstock.model.MouvementStock;
-import com.projetstock.model.Article; 
-import com.projetstock.model.Stock;
-import com.projetstock.repository.ArticleRepository;
-import com.projetstock.repository.MouvementStockRepository;
-import com.projetstock.repository.StockRepository;
+import com.project.model.MouvementStock;
+import com.project.model.Article; 
+import com.project.model.Stock;
+import com.project.repository.ArticleRepository;
+import com.project.repository.MouvementStockRepository;
+import com.project.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;

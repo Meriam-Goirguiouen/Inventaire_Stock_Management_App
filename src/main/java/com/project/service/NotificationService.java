@@ -1,7 +1,7 @@
-package com.projetstock.service;
+package com.project.service;
 
-import com.projetstock.model.Notification;
-import com.projetstock.repository.NotificationRepository;
+import com.project.model.Notification;
+import com.project.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate; // <-- Importer JmsTemplate
 import org.springframework.stereotype.Service;

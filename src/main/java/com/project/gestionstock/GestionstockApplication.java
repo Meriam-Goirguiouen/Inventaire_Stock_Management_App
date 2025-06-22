@@ -1,6 +1,6 @@
-package com.projetstock.gestionstock;
+package com.project.gestionstock;
 
-import com.projetstock.service.NotificationService;
+import com.project.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
