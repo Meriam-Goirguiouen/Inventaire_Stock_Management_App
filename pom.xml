@@ -47,7 +47,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <mainClass>com.example.inventaire.InventaireApplication</mainClass>
+          <mainClass>com.project.InventaireApplication</mainClass>
         </configuration>
       </plugin>
     </plugins>
