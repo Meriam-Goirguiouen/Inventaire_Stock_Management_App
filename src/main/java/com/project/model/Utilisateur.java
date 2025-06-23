@@ -7,11 +7,13 @@ public class Utilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUtilisateur")
     private Long id;
 
     private String nom;
     private String prenom;
     private String email;
+    @Column(name = "mot_de_passe")
     private String motDePasse;
 
     @Enumerated(EnumType.STRING)
@@ -26,6 +28,10 @@ public class Utilisateur {
     // Getters & Setters
     public Long getId() { 
         return id; 
+    }
+    
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getNom() { 

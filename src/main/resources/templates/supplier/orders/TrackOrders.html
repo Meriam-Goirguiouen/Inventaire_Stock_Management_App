@@ -133,7 +133,7 @@
     <h2>Commandes Livrées</h2>
     <ul>
         <li th:each="order : ${deliveredOrders}">
-            <span th:text="'Commande #' + ${order.idCommande} + ' - ' + ${#dates.format(order.dateCommande, 'dd/MM/yyyy')} + ' (' + ${order.statut} + ')'">Commande</span>
+            <span th:text="'Commande #' + ${order.id} + ' - ' + ${#dates.format(order.dateCommande, 'dd/MM/yyyy')} + ' (' + ${order.statut} + ')'">Commande</span>
         </li>
         </ul>
     </div>

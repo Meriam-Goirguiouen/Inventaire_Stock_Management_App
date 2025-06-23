@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,14 +22,14 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="#">
+            <form th:action="@{/login}" method="post" th:object="${utilisateur}">
                 <h1>Sign in</h1>
                 
                <br>
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <a href="#">Forgot your password?</a>
-                <button>Sign In</button>
+                <input type="email" placeholder="Email" th:field="*{email}" required />
+                <input type="password" placeholder="Password" th:field="*{motDePasse}" required />
+                <button type="submit">Sign In</button>
+                <p th:if="${error}" th:text="${error}" style="color:red;"></p>
             </form>
         </div>
         <div class="overlay-container">
