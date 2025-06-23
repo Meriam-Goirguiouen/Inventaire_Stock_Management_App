@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Gestion des articles - Magasinier</title>
     <link rel="stylesheet" th:href="@{/css/gestionar.css}" />
+
+    <!-- ▼▼▼ AJOUTER CES DEUX LIGNES ▼▼▼ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <!-- ▲▲▲ FIN DE L'AJOUT ▲▲▲ -->
     
 </head>
 <body>
@@ -36,29 +41,17 @@
                             <th>Quantité</th>
                         </tr>
                     </thead>
-                    <tbody>
-    <tr>
-        <td>Clé USB 16Go</td>
-        <td>Stockage amovible pour données</td>
-        <td>Informatique</td>
-        <td>45</td>
-    </tr>
-    <tr>
-        <td>Cartouches d’encre</td>
-        <td>Compatible imprimantes HP</td>
-        <td>Fournitures de bureau</td>
-        <td>12</td>
-    </tr>
-    <tr>
-        <td>Clavier sans fil</td>
-        <td>Connexion Bluetooth, AZERTY</td>
-        <td>Périphériques</td>
-        <td>20</td>
-    </tr>
-</tbody>
-
+        <tbody>
+        <tr th:each="article : ${articles}">
+            <td th:text="${article.nom}"></td>
+            <td th:text="${article.description}"></td>
+            <td th:text="${article.categorie}"></td>
+           <td th:text="${article.stock?.quantiteActuelle}"></td>
+        </tr>
+        </tbody>
                 </table>
             </div>
+
 
             <!-- Partie formulaire -->
             <div class="card">
@@ -80,6 +73,55 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    
+    // Variable pour garder une référence au client STOMP
+    let stompClient = null;
+
+    // Fonction pour se connecter au serveur WebSocket
+    function connect() {
+        // 1. On crée un nouveau point de connexion SockJS vers l'endpoint "/ws" qu'on a défini dans le backend
+        const socket = new SockJS('/ws');
+        
+        // 2. On utilise ce socket pour créer un client STOMP
+        stompClient = Stomp.over(socket);
+        
+        // 3. On se connecte au serveur
+        stompClient.connect({}, function (frame) {
+            console.log('Connecté au WebSocket: ' + frame);
+            
+            // 4. Une fois connecté, on s'abonne au topic "/topic/stock_alerts"
+            // C'est le canal sur lequel notre backend envoie les notifications
+            stompClient.subscribe('/topic/stock_alerts', function (notification) {
+                // 5. Quand un message arrive, on appelle la fonction pour afficher la popup
+                showNotification(notification.body);
+            });
+        });
+    }
+
+    // Fonction pour se déconnecter (bonne pratique)
+    function disconnect() {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        console.log("Déconnecté du WebSocket");
+    }
+
+    // Fonction pour afficher la popup de notification
+    function showNotification(message) {
+        // C'est une simple alerte JavaScript, mais on peut la remplacer par une plus jolie popup
+        console.log("Notification reçue : ", message);
+        alert("ALERTE : " + message);
+        
+        // Ici, on pourrait utiliser une librairie comme Toastify, SweetAlert,
+        // ou simplement créer un élément HTML (un div) et l'afficher à l'écran.
+    }
+
+    // On appelle la fonction de connexion dès que la page est chargée
+    connect();
+
+</script>
 
 </body>
 </html>
