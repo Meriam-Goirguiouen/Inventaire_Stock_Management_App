@@ -1,26 +1,29 @@
-package com.project.model;
+package com.project.model; // Assurez-vous que le package est le bon
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name = "bon_commande") // Spécifier le nom de la table
 public class BonCommande {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // La colonne 'id' est BIGINT(20), donc Long est correct ici.
 
+    @Column(name = "date_creation") // Lien avec la colonne
     private LocalDateTime dateCreation;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "etat") // Lien avec la colonne
     private EtatCommande etat;
 
-    @ManyToOne
-    @JoinColumn(name = "fournisseur_id")
+    @ManyToOne(fetch = FetchType.LAZY) // fetch=LAZY est une bonne pratique
+    @JoinColumn(name = "fournisseur_id", referencedColumnName = "id_utilisateur") // CORRECTION ICI
     private Utilisateur fournisseur;
 
-    @OneToMany(mappedBy = "bonCommande", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bonCommande", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LigneCommande> lignes;
 
     public enum EtatCommande {

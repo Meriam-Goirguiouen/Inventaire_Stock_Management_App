@@ -1,14 +1,18 @@
 package com.project.service;
 
+import com.project.dto.MouvementStockDto; // <-- Importer le DTO
+import com.project.model.Article;
 import com.project.model.MouvementStock;
-import com.project.model.Article; 
 import com.project.model.Stock;
 import com.project.repository.ArticleRepository;
 import com.project.repository.MouvementStockRepository;
 import com.project.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // <-- Important pour la cohérence
+
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class MouvementStockService {
@@ -23,42 +27,61 @@ public class MouvementStockService {
     private NotificationService notificationService;
 
     @Autowired
-    private ArticleRepository articleRepository; // C'est bien que ce soit là
+    private ArticleRepository articleRepository;
 
-    public void enregistrerMouvement(MouvementStock mouvement) {
-        // Enregistrer le mouvement
+    // L'annotation @Transactional garantit que soit TOUT réussit, soit RIEN n'est sauvegardé.
+    // C'est crucial pour la cohérence des données.
+    @Transactional
+    public void enregistrerMouvement(MouvementStockDto mouvementDto) {
+        
+        // ==================== PARTIE 1 : TRADUCTION DTO -> ENTITÉ ====================
+        
+        // On vérifie que l'article existe avant de continuer.
+        Article articleConcerne = articleRepository.findById(mouvementDto.getIdArticle())
+                .orElseThrow(() -> new RuntimeException("Article non trouvé avec l'ID : " + mouvementDto.getIdArticle()));
+
+        // On crée l'entité MouvementStock qui sera sauvegardée en BDD.
+        MouvementStock mouvement = new MouvementStock();
+        mouvement.setIdArticle(articleConcerne.getIdArticle()); // On utilise l'ID de l'article trouvé
+        mouvement.setTypeMouvement(mouvementDto.getTypeMouvement());
+        mouvement.setQuantiteModifiee(mouvementDto.getQuantiteModifiee());
         mouvement.setDateMouvement(LocalDateTime.now());
+        
         mouvementStockRepository.save(mouvement);
 
-        // Mettre à jour le stock
-        // Note: C'est mieux d'utiliser findById qui retourne un Optional
-        Stock stock = stockRepository.findByIdArticle(mouvement.getIdArticle()); 
-        if (stock != null) {
-            int nouvelleQuantite = stock.getQuantiteActuelle();
+        // ==================== PARTIE 2 : LOGIQUE MÉTIER EXISTANTE ====================
+        // Le reste du code est votre logique, mais rendue plus robuste.
+        
+        Stock stock = stockRepository.findByIdArticle(articleConcerne.getIdArticle());
+        
+        if (stock == null) {
+            // Si le stock n'existe pas pour cet article, c'est une erreur de données.
+            // On pourrait aussi décider d'en créer un nouveau ici.
+            throw new RuntimeException("Aucun stock trouvé pour l'article : " + articleConcerne.getNom());
+        }
 
-            if (mouvement.getTypeMouvement().equalsIgnoreCase("ENTREE")) {
-                nouvelleQuantite += mouvement.getQuantiteModifiee();
-            } else if (mouvement.getTypeMouvement().equalsIgnoreCase("SORTIE")) {
-                nouvelleQuantite -= mouvement.getQuantiteModifiee();
+        int nouvelleQuantite = stock.getQuantiteActuelle();
+
+        if ("ENTREE".equalsIgnoreCase(mouvement.getTypeMouvement())) {
+            nouvelleQuantite += mouvement.getQuantiteModifiee();
+        } else if ("SORTIE".equalsIgnoreCase(mouvement.getTypeMouvement())) {
+            nouvelleQuantite -= mouvement.getQuantiteModifiee();
+            if (nouvelleQuantite < 0) {
+                // On ne peut pas avoir un stock négatif. On lève une erreur.
+                throw new RuntimeException("Quantité en stock insuffisante pour l'article : " + articleConcerne.getNom());
             }
+        }
 
-            stock.setQuantiteActuelle(nouvelleQuantite);
-            stock.setDerniereMiseAJour(LocalDateTime.now());
-            stockRepository.save(stock);
+        stock.setQuantiteActuelle(nouvelleQuantite);
+        stock.setDerniereMiseAJour(LocalDateTime.now());
+        stockRepository.save(stock);
 
-            // ==================== DÉBUT DE LA CORRECTION ====================
-
-            // Vérifier seuil d’alerte
-            if (nouvelleQuantite < stock.getSeuilAlerte()) {
-                
-                // 1. On utilise l'ID de l'article du mouvement pour trouver l'article complet
-                Article articleConcerne = articleRepository.findById(mouvement.getIdArticle())
-                        .orElseThrow(() -> new RuntimeException("Erreur: Impossible de trouver l'article avec l'ID " + mouvement.getIdArticle() + " pour envoyer la notification."));
-
-                // 2. On appelle la bonne méthode du NotificationService avec le nom de l'article
-                // L'ID '1' pour l'utilisateur est un exemple, à adapter si besoin (ex: récupérer l'admin)
-                notificationService.envoyerNotificationStockBas(1, articleConcerne.getNom());
-            }
+        // Vérifier seuil d’alerte (uniquement pour les sorties)
+        if ("SORTIE".equalsIgnoreCase(mouvement.getTypeMouvement()) && nouvelleQuantite < stock.getSeuilAlerte()) {
+            
+            // L'ID '1' pour l'utilisateur est un exemple, à adapter si besoin.
+            // On a déjà 'articleConcerne', donc pas besoin de le rechercher à nouveau.
+            notificationService.envoyerNotificationStockBas(1, articleConcerne.getNom());
         }
     }
 }
