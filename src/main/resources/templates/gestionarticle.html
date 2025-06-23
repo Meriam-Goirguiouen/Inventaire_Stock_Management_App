@@ -12,11 +12,11 @@
     <div class="sidebar">
         <img th:src="@{/img/logo.png}" alt="Logo" class="logo-img" />
         <ul>
-            <li><a th:href="@{/magasinier}">Dashboard</a></li>
+            <li><a th:href="@{/magasinier/dashboard}">Dashboard</a></li>
             <li><a th:href="@{/magasinier/articles}">Gestion des articles</a></li>
             <li><a th:href="@{/magasinier/alertes}">Alertes</a></li>
-            <li><a th:href="@{/magasinier/commandes}">Passer commande</a></li>
-            <li><a th:href="@{/logout}">Déconnexion</a></li>
+            <li><a th:href="@{/magasinier/commande}">Passer commande</a></li>
+            <li><a th:href="@{/login}">Déconnexion</a></li>
         </ul>
     </div>
 
@@ -36,27 +36,14 @@
                             <th>Quantité</th>
                         </tr>
                     </thead>
-                    <tbody>
-    <tr>
-        <td>Clé USB 16Go</td>
-        <td>Stockage amovible pour données</td>
-        <td>Informatique</td>
-        <td>45</td>
-    </tr>
-    <tr>
-        <td>Cartouches d’encre</td>
-        <td>Compatible imprimantes HP</td>
-        <td>Fournitures de bureau</td>
-        <td>12</td>
-    </tr>
-    <tr>
-        <td>Clavier sans fil</td>
-        <td>Connexion Bluetooth, AZERTY</td>
-        <td>Périphériques</td>
-        <td>20</td>
-    </tr>
-</tbody>
-
+        <tbody>
+        <tr th:each="article : ${articles}">
+            <td th:text="${article.nom}"></td>
+            <td th:text="${article.description}"></td>
+            <td th:text="${article.categorie}"></td>
+           <td th:text="${article.stock?.quantiteActuelle}"></td>
+        </tr>
+        </tbody>
                 </table>
             </div>
 

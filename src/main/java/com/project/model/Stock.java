@@ -4,36 +4,44 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "stock")
 public class Stock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idStock;
+    @Column(name = "id_stock") 
+    private Integer idStock;
 
-    private int idArticle;
+    @OneToOne
+    @JoinColumn(name = "id_article", unique = true) 
+    private Article article;
 
+    @Column(name = "quantite_actuelle")
     private int quantiteActuelle;
 
+    @Column(name = "seuil_alerte")
     private int seuilAlerte;
 
+    @Column(name = "derniere_miseajour")
     private LocalDateTime derniereMiseAJour;
 
     // Getters et Setters
 
-    public int getIdStock() {
+    public Integer getIdStock() {
         return idStock;
     }
 
-    public void setIdStock(int idStock) {
+    public void setIdStock(Integer idStock) {
         this.idStock = idStock;
     }
 
-    public int getIdArticle() {
-        return idArticle;
+    // Getter et Setter pour l'objet Article
+    public Article getArticle() {
+        return article;
     }
 
-    public void setIdArticle(int idArticle) {
-        this.idArticle = idArticle;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
     public int getQuantiteActuelle() {

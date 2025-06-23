@@ -31,8 +31,14 @@ public class MouvementStockService {
         mouvementStockRepository.save(mouvement);
 
         // Mettre à jour le stock
-        // Note: C'est mieux d'utiliser findById qui retourne un Optional
-        Stock stock = stockRepository.findByIdArticle(mouvement.getIdArticle()); 
+       
+        // Récupérer l'article à partir du mouvement
+        Article articleConcerne = mouvement.getArticle();
+        if (articleConcerne == null) {
+            throw new RuntimeException("Le mouvement de stock n'est pas lié à un article.");
+        }
+       // Mettre à jour le stock en utilisant la méthode corrigée du repository
+        Stock stock = stockRepository.findByArticle_IdArticle(articleConcerne.getIdArticle());
         if (stock != null) {
             int nouvelleQuantite = stock.getQuantiteActuelle();
 
@@ -49,16 +55,15 @@ public class MouvementStockService {
             // ==================== DÉBUT DE LA CORRECTION ====================
 
             // Vérifier seuil d’alerte
-            if (nouvelleQuantite < stock.getSeuilAlerte()) {
-                
-                // 1. On utilise l'ID de l'article du mouvement pour trouver l'article complet
-                Article articleConcerne = articleRepository.findById(mouvement.getIdArticle())
-                        .orElseThrow(() -> new RuntimeException("Erreur: Impossible de trouver l'article avec l'ID " + mouvement.getIdArticle() + " pour envoyer la notification."));
+if (nouvelleQuantite < stock.getSeuilAlerte()) {
 
-                // 2. On appelle la bonne méthode du NotificationService avec le nom de l'article
-                // L'ID '1' pour l'utilisateur est un exemple, à adapter si besoin (ex: récupérer l'admin)
-                notificationService.envoyerNotificationStockBas(1, articleConcerne.getNom());
+    // 1. On récupère directement l'objet Article depuis le mouvement. Pas de nouvelle requête !
+    Article articleConcernee = mouvement.getArticle();
+
+    // 2. On appelle la bonne méthode du NotificationService
+    //    L'ID '1' pour l'utilisateur est un exemple, à adapter si besoin (ex: récupérer l'admin)
+    notificationService.envoyerNotificationStockBas(1, articleConcernee.getNom());
+}
             }
         }
     }
-}

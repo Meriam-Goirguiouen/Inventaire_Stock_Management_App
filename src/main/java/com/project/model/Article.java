@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.CascadeType;
 
 @Entity
 public class Article {
@@ -15,15 +17,31 @@ public class Article {
     private String nom;
     private String description;
     private String categorie;
-    // Ajoutez d'autres champs si nécessaire (catégorie, etc.)
+
+
+    @OneToOne(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Stock stock;
+
 
     // Getters et Setters...
     public Integer getIdArticle() { return idArticle; }
     public void setIdArticle(Integer idArticle) { this.idArticle = idArticle; }
+
     public String getNom() { return nom; }
     public void setNom(String nom) { this.nom = nom; }
+
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
     public String getCategorie() { return categorie; }
     public void setCategorie(String categorie) { this.categorie = categorie; }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+   
 }

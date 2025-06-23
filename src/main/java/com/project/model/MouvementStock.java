@@ -10,7 +10,11 @@ public class MouvementStock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idMouvement;
 
-    private int idArticle;
+     // NOUVEAU :
+    @ManyToOne // Un article peut avoir plusieurs mouvements de stock
+    @JoinColumn(name = "id_article", nullable = false) // Le nom de la colonne dans la BDD
+    private Article article;
+    // -----------------------------
 
     private Integer idMagasinier;
 
@@ -29,13 +33,9 @@ public class MouvementStock {
         this.idMouvement = idMouvement;
     }
 
-    public int getIdArticle() {
-        return idArticle;
-    }
-
-    public void setIdArticle(int idArticle) {
-        this.idArticle = idArticle;
-    }
+    public Article getArticle() { return article; }
+    
+    public void setArticle(Article article) { this.article = article; }
 
     public Integer getIdMagasinier() {
         return idMagasinier;
