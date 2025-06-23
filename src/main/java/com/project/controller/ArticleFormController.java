@@ -27,7 +27,7 @@ public class ArticleFormController { // <-- Votre nom de contrôleur
     private ArticleRepository articleRepository;
 
     // Cette méthode affiche la page de gestion des articles
-    @GetMapping
+    /*@GetMapping
     public String showGestionArticlesPage(Model model) {
         // Pour remplir la liste des articles dans le tableau et le select
         List<Article> articleList = articleRepository.findAll();
@@ -35,7 +35,7 @@ public class ArticleFormController { // <-- Votre nom de contrôleur
         
        
         return "gestionarticle"; // <-- Décommentez cette ligne si votre fichier est gestionarticle.html
-    }
+    }*/
 
     // Cette méthode traite la soumission du formulaire
     @PostMapping("/save")

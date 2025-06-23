@@ -37,7 +37,7 @@ public class UtilisateurController {
                 case ADMINISTRATEUR:
                     return "redirect:/admin/accueil";
                 case MAGASINIER:
-                    return "redirect:/magasin/dashboard";
+                    return "redirect:/magasinier";
                 default:
                     model.addAttribute("error", "Rôle inconnu.");
                     return "login";

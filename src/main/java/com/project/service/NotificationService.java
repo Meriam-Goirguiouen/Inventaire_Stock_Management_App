@@ -2,7 +2,7 @@ package com.project.service;
 
 import com.project.model.Notification;
 import com.project.repository.NotificationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.jms.core.JmsTemplate; // <-- Importer JmsTemplate
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,7 @@ public class NotificationService {
     // Le nom de notre "boîte aux lettres" (queue) dans Artemis
     private static final String NOTIFICATION_QUEUE = "alerte.stock.bas.queue";
 
+    
     public void envoyerNotificationStockBas(Integer idUtilisateur, String nomArticle) {
         // 1. Préparer le message
         String messageText = "Alerte : le stock de l'article '" + nomArticle + "' est bas.";

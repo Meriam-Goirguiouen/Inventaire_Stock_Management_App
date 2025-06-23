@@ -19,7 +19,7 @@ public class UtilisateurService {
         return utilisateurRepository.findAll();
     }
 
-    public Utilisateur getUtilisateurById(Long id) {
+    public Utilisateur getUtilisateurById(Integer id) {
         return utilisateurRepository.findById(id).orElse(null);
     }
 
@@ -31,7 +31,7 @@ public class UtilisateurService {
         return utilisateurRepository.save(utilisateur);
     }
 
-    public Utilisateur updateUtilisateur(Long id, Utilisateur updatedUser) {
+    public Utilisateur updateUtilisateur(Integer id, Utilisateur updatedUser) {
         Optional<Utilisateur> existing = utilisateurRepository.findById(id);
         if (existing.isPresent()) {
             Utilisateur utilisateur = existing.get();
@@ -45,7 +45,7 @@ public class UtilisateurService {
         return null;
     }
 
-    public void deleteUtilisateur(Long id) {
+    public void deleteUtilisateur(Integer id) {
         utilisateurRepository.deleteById(id);
     }
     

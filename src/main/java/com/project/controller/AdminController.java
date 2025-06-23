@@ -53,7 +53,7 @@ public class AdminController {
     }
     
     @GetMapping("/utilisateurs/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(@PathVariable Integer id, Model model) {
         Utilisateur utilisateur = utilisateurService.getUtilisateurById(id);
         if (utilisateur == null) {
             // Rediriger vers la liste si l'utilisateur n'existe pas
