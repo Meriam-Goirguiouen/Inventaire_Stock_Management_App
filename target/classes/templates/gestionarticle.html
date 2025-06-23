@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des articles - Magasinier</title>
+    <link rel="stylesheet" th:href="@{/css/gestionar.css}" />
+    
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <img th:src="@{/img/logo.png}" alt="Logo" class="logo-img" />
+        <ul>
+            <li><a th:href="@{/magasinier}">Dashboard</a></li>
+            <li><a th:href="@{/magasinier/articles}">Gestion des articles</a></li>
+            <li><a th:href="@{/magasinier/alertes}">Alertes</a></li>
+            <li><a th:href="@{/magasinier/commandes}">Passer commande</a></li>
+            <li><a th:href="@{/logout}">Déconnexion</a></li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <h2>Gestion des articles</h2>
+
+        <div class="content">
+            <!-- Partie tableau -->
+            <div class="card">
+                <h3>Liste des articles</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Catégorie</th>
+                            <th>Quantité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    <tr>
+        <td>Clé USB 16Go</td>
+        <td>Stockage amovible pour données</td>
+        <td>Informatique</td>
+        <td>45</td>
+    </tr>
+    <tr>
+        <td>Cartouches d’encre</td>
+        <td>Compatible imprimantes HP</td>
+        <td>Fournitures de bureau</td>
+        <td>12</td>
+    </tr>
+    <tr>
+        <td>Clavier sans fil</td>
+        <td>Connexion Bluetooth, AZERTY</td>
+        <td>Périphériques</td>
+        <td>20</td>
+    </tr>
+</tbody>
+
+                </table>
+            </div>
+
+            <!-- Partie formulaire -->
+            <div class="card">
+                <h3>Gérer un article</h3>
+                <form th:action="@{/magasinier/articles/save}" method="post">
+                    <input type="text" name="nom" placeholder="Nom de l'article" required />
+                    
+                    <select name="type" required>
+                        <option value="">Type d'opération</option>
+                        <option value="entrée">Entrée</option>
+                        <option value="sortie">Sortie</option>
+                    </select>
+
+                    <input type="number" name="quantite" placeholder="Quantité" min="1" required />
+                    
+                    <button type="submit">Valider</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
