@@ -185,19 +185,24 @@
         </div>
 
     <div class="main">
-    <h2 th:text="'Commande #' + ${order.idCommande}">Commande</h2>
+    <h2 th:text="'Commande #' + ${order.id}">Commande</h2>
 
-    <form th:action="@{/supplier/orders/confirm-or-decline}" method="post" th:object="${orderAction}">
-        <input type="hidden" th:field="*{orderId}" />
+    <form th:action="@{/supplier/orders/confirm-or-decline}" method="post">
+        <input type="hidden" name="id" th:value="${order.id}" />
 
-        <label for="action">Action :</label>
-        <select th:field="*{action}" id="action">
-            <option value="confirm">Confirmer</option>
-            <option value="refuse">Refuser</option>
+        <label for="etat">Statut :</label>
+        <select name="etat" id="etat">
+            <option value="CONFIRMEE">Confirmer</option>
+            <option value="REFUSEE">Refuser</option>
         </select>
 
         <button type="submit">Envoyer</button>
     </form>
+
+    
+
+
+
 </div>
 
 </body>

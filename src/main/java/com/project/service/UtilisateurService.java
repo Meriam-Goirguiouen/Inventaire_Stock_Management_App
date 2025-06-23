@@ -48,4 +48,12 @@ public class UtilisateurService {
     public void deleteUtilisateur(Long id) {
         utilisateurRepository.deleteById(id);
     }
+    
+    public long countFournisseurs() {
+        return utilisateurRepository.countByRole(Utilisateur.Role.FOURNISSEUR);
+    }
+    
+    public List<Utilisateur> findAll() {
+        return utilisateurRepository.findAll();
+    }
 }

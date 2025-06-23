@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestion des Utilisateurs</title>
+  <link rel="stylesheet" th:href="@{/css/style2.css}" />
+
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <img th:src="@{/img/logo.png}" alt="Admin Logo" class="logo-img" />
+    <ul>
+      <li><a th:href="@{/admin/accueil}">Dashboard</a></li>
+      <li><a th:href="@{/admin/utilisateurs}">Gérer Utilisatuer</a></li>
+      <li><a th:href="@{/logout}">Déconnexion</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h2>Liste des Utilisateurs</h2>
+    <div class="actions">
+      <button><a th:href="@{/admin/utilisateurs/add}">Ajouter un utilisateur</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Rôle</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="utilisateur : ${utilisateurs}">
+          <td th:text="${utilisateur.id}"></td>
+          <td th:text="${utilisateur.nom}"></td>
+          <td th:text="${utilisateur.email}"></td>
+          <td th:text="${utilisateur.role}"></td>
+          <td>
+            <a th:href="@{/admin/utilisateurs/edit/{id}(id=${utilisateur.id})}">
+              <button>Modifier</button>
+            </a>
+            <a th:href="@{/admin/utilisateurs/delete/{id}(id=${utilisateur.id})}" onclick="return confirm('Supprimer cet utilisateur ?');">
+              <button class="delete">Supprimer</button>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

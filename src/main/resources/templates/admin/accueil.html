@@ -12,9 +12,8 @@
         <img th:src="@{/img/logo.png}" alt="Admin Logo" class="logo-img" />
         <ul>
             <li><a th:href="@{/admin/accueil}">Dashboard</a></li>
-            <li><a th:href="@{/admin/fournisseurs}">Fournisseurs</a></li>
-            <li><a th:href="@{/admin/produits}">Magasiner</a></li>
-            <li><a th:href="@{/admin/commandes}">Commandes</a></li>
+            <li><a th:href="@{/admin/utilisateurs}">Gérer Utilisatuer</a></li>
+            <li><a th:href="@{/logout}">Déconnexion</a></li>
             
         </ul>
     </div>
@@ -27,15 +26,11 @@
             <h3>Statistiques générales</h3>
             <div class="stats">
                 <div class="stat-box">
-                    <h2 th:text="${fournisseurCount ?: 0}">0</h2>
+                    <h2 th:text="${fournisseurCount}"></h2>
                     <p>Fournisseurs</p>
                 </div>
                 <div class="stat-box">
-                    <h2 th:text="${produitCount ?: 0}">0</h2>
-                    <p>Produits</p>
-                </div>
-                <div class="stat-box">
-                    <h2 th:text="${commandeCount ?: 0}">0</h2>
+                    <h2 th:text="${commandeCount}"></h2>
                     <p>Commandes</p>
                 </div>
             </div>

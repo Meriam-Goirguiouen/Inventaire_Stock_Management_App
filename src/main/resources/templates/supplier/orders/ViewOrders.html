@@ -141,12 +141,12 @@
             </thead>
             <tbody>
                 <tr th:each="order : ${orders}">
-                    <td th:text="${order.idCommande}">101</td>
-                    <td th:text="${#dates.format(order.dateCommande, 'dd/MM/yyyy')}">20/06/2025</td>
-                    <td th:text="${order.statut}">En attente</td>
+                    <td th:text="${order.id}"></td> <!-- ⚠️ ici -->
+                    <td th:text="${order.dateCreation}"></td>
+                    <td th:text="${order.etat}"></td>
                     <td>
-                        <a th:href="@{/supplier/orders/confirm-or-decline(orderId=${order.idCommande})}" class="action-link">Confirmer/Refuser</a>
-                        <a th:href="@{/supplier/orders/add-comments(orderId=${order.idCommande})}" class="action-link">Ajouter commentaire</a>
+                        <a th:href="@{/supplier/orders/confirm-or-decline(orderId=${order.id})}" class="action-link">Confirmer/Refuser</a>
+                        <a th:href="@{/supplier/orders/add-comments(orderId=${order.id})}" class="action-link">Ajouter commentaire</a>
                     </td>
                 </tr>
             </tbody>

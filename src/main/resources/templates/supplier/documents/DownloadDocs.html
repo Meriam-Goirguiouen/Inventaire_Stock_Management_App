@@ -147,11 +147,12 @@
     <h2>Documents Disponibles</h2>
     <table border="1">
         <tr><th>Nom</th><th>Commande</th><th>Action</th></tr>
-        <tr th:each="doc : ${documents}">
-            <td th:text="${doc.filename}">Nom</td>
-            <td th:text="${doc.orderId}">Commande</td>
+        <tr th:each="commande : ${commandes}">
+            <td th:text="${commande.id}"></td>
+            <span th:text="${#temporals.format(commande.dateCreation, 'dd/MM/yyyy HH:mm')}"></span>
+            <td th:text="${commande.etat}"></td>
             <td>
-                <a th:href="@{/supplier/documents/download/{id}(id=${doc.orderId})}" class="action-link">Télécharger PDF</a>
+                <a th:href="@{'/supplier/documents/download/' + ${commande.id}}">Télécharger PDF</a>
             </td>
         </tr>
     </table>
