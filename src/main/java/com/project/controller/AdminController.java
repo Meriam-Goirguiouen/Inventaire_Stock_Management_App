@@ -113,7 +113,7 @@ public class AdminController {
     // Suppression d'un utilisateur par son ID
     @GetMapping("/utilisateurs/delete/{id}")
     public String deleteUtilisateur(@PathVariable Long id) {
-        utilisateurRepository.deleteById(id);
+        //utilisateurRepository.deleteById(id);
         return "redirect:/admin/utilisateurs";  // Redirige vers la liste après suppression
     }
 
