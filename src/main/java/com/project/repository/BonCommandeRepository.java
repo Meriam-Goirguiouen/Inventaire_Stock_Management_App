@@ -10,4 +10,5 @@ import java.util.List;
 public interface BonCommandeRepository extends JpaRepository<BonCommande, Long> {
     List<BonCommande> findByFournisseur(Utilisateur fournisseur);
     List<BonCommande> findByEtat(EtatCommande etat);
+    List<BonCommande> findByFournisseurAndEtat(Utilisateur fournisseur, BonCommande.EtatCommande etat);
 }

@@ -53,4 +53,19 @@ public class BonCommandeService {
     public void deleteBonCommande(Long id) {
         bonCommandeRepository.deleteById(id);
     }
+    
+    public BonCommande saveBonCommande(BonCommande commande) {
+        return bonCommandeRepository.save(commande);
+    }
+    
+    public List<BonCommande> getLivreeOrderByFournisseur(Utilisateur fournisseur){
+        List<BonCommande> orders = bonCommandeRepository.findByFournisseurAndEtat(fournisseur, BonCommande.EtatCommande.LIVREE);
+        return orders;
+    }
+    
+    public long countCommandes() {
+        return bonCommandeRepository.count();
+    }
+    
+    
 }

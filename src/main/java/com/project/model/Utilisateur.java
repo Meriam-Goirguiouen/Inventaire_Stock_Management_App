@@ -10,7 +10,6 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_utilisateur") // Lien avec la colonne 'id_utilisateur'
     private Integer id; // Le type en BDD est INT, donc on utilise Integer
-
     @Column(name = "nom")
     private String nom;
 
@@ -22,7 +21,7 @@ public class Utilisateur {
 
     @Column(name = "mot_de_passe") // Le nom de la colonne est 'mot_de_passe'
     private String motDePasse; // Le nom de la variable Java peut rester en camelCase
-
+  
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
@@ -37,6 +36,10 @@ public class Utilisateur {
 
     public Integer getId() {
         return id;
+    }
+    
+    public void setId(Long id){
+        this.id = id;
     }
 
     public String getNom() {

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier Utilisateur</title>
+  <link rel="stylesheet" th:href="@{/css/style2.css}" />
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <img th:src="@{/img/logo.png}" alt="Admin Logo" class="logo-img" />
+    <ul>
+      <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+      <li><a th:href="@{/admin/utilisateurs}">Gérer Utilisatuer</a></li>
+      <li><a th:href="@{/logout}">Déconnexion</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h1>Ajouter un nouvel utilisateur</h1>
+    <form th:action="@{/admin/utilisateurs/add}" th:object="${utilisateur}" method="post">
+      
+
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" th:field="*{nom} "  required />
+
+      <label for="email">Email :</label>
+      <input type="email" id="email" th:field="*{email}" required />
+
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" th:field="*{motDePasse}" required />
+
+      <label for="role">Rôle :</label>
+      <select id="role" th:field="*{role}" required>
+        <option value="ADMINISTRATEUR">ADMINISTRATEUR</option>
+        <option value="FOURNISSEUR">FOURNISSEUR</option>
+        <option value="MAGASINIER">MAGASINIER</option>
+      </select>
+
+      <div class="form-buttons">
+        <button type="submit">Enregistrer</button>
+        <a th:href="@{/admin/utilisateurs}" class="cancel-button">Annuler</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
+
